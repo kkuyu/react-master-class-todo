@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { toDoState } from "../atoms";
+import { toDoSelector, toDoState } from "../atoms";
 
 import CreateToDo from "./CreateToDo";
 import ToDo from "./ToDo";
@@ -8,6 +8,8 @@ import ToDo from "./ToDo";
 function ToDoList() {
   const toDos = useRecoilValue(toDoState);
   const setToDos = useSetRecoilState(toDoState);
+
+  const [toDo, doing, done] = useRecoilValue(toDoSelector);
 
   useEffect(() => {
     setToDos([
@@ -43,11 +45,29 @@ function ToDoList() {
 
   return (
     <div>
-      <h1>To Dos</h1>
-      <hr />
+      <h1>Make To Dos</h1>
       <CreateToDo />
+
+      <hr />
+      <h2>To Do List</h2>
       <ul>
-        {toDos.map((toDo) => (
+        {toDo.map((toDo) => (
+          <ToDo key={toDo.id} {...toDo} />
+        ))}
+      </ul>
+
+      <hr />
+      <h2>Doing List</h2>
+      <ul>
+        {doing.map((toDo) => (
+          <ToDo key={toDo.id} {...toDo} />
+        ))}
+      </ul>
+
+      <hr />
+      <h2>Done List</h2>
+      <ul>
+        {done.map((toDo) => (
           <ToDo key={toDo.id} {...toDo} />
         ))}
       </ul>
