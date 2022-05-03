@@ -9,6 +9,13 @@ function ToDo({ id, text, category }: IToDo) {
     const {
       currentTarget: { name },
     } = event;
+
+    setToDos((oldToDos) => {
+      return oldToDos.map((toDo) => {
+        if (toDo.id !== id) return toDo;
+        return { ...toDo, category: name as IToDo["category"] };
+      });
+    });
   };
 
   return (
