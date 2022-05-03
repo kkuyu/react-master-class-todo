@@ -18,6 +18,15 @@ function ToDo({ id, text, category }: IToDo) {
     });
   };
 
+  const handleDelete = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setToDos((oldToDos) =>
+      oldToDos.reduce((acc: IToDo[], cur: IToDo) => {
+        if (cur.id !== id) acc.push(cur);
+        return acc;
+      }, [])
+    );
+  };
+
   return (
     <li>
       <span>{text}</span>
@@ -36,6 +45,9 @@ function ToDo({ id, text, category }: IToDo) {
           Done
         </button>
       )}
+      <button type="button" onClick={handleDelete}>
+        delete
+      </button>
     </li>
   );
 }
