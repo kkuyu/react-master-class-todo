@@ -1,24 +1,19 @@
-import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 function ToDoList() {
-  const [todo, setTodo] = useState("");
+  const { register, formState, handleSubmit } = useForm();
 
-  const onChange = (event: React.FormEvent<HTMLInputElement>) => {
-    const {
-      currentTarget: { value },
-    } = event;
-    setTodo(value);
+  const onValid = (data: any) => {
+    console.log("valid", data);
   };
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log(todo);
-  };
+  console.log("error", formState.errors);
 
   return (
     <div>
-      <form onSubmit={onSubmit}>
-        <input type="text" value={todo} onChange={onChange} placeholder="Write a to do" />
+      <form style={{ display: "flex", flexDirection: "column" }} onSubmit={handleSubmit(onValid)}>
+        <input type="text" {...register("todo", { required: "todo is required" })} placeholder="Write a to do" />
+        <input type="text" {...register("password", { required: "password is required", minLength: { value: 10, message: "password is too short" } })} placeholder="Write a password" />
         <button type="submit">Add</button>
       </form>
     </div>
