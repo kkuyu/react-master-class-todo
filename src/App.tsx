@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import "./assets/fonts/font.css";
 
-import ToDoList from "./ToDoList";
+import ToDoList from "./components/ToDoList";
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
